@@ -12,12 +12,24 @@ export const Unsplash = () => {
   const [hasMore, setHasMore] = useState(true);
   const [show, setShow] = useState(false);
   const [image, setImage] = useState("");
+  const [index_img, setIndex] = useState(0);
   const handleClose = () => setShow(false);
-  const handleShow = (image) => {
+  const handleShow = (image, key) => {
     setImage(image);
+    setIndex(key);
     setShow(true);
   };
 
+  const nextImage = () => {
+    console.log(index_img);
+    setImage(data.at(index_img + 1).urls.small);
+    setIndex(index_img + 1);
+  };
+  const prevImage = () => {
+    console.log(index_img);
+    setImage(data.at(index_img - 1).urls.small);
+    setIndex(index_img - 1);
+  };
   const client_id = "4mB0CC1xdwTfTQGjF1v1uO9vS2Z8ubzBPd4X0B86IEU";
   const fetchUrl = `https://api.unsplash.com/search/photos?client_id=${client_id}&query=${query}&page=${page}`;
 
@@ -27,6 +39,7 @@ export const Unsplash = () => {
         headers: {},
       })
       .then((response) => {
+        console.log(response.data.results);
         setData([...data, ...response.data.results]);
       })
       .catch((error) => {
@@ -50,7 +63,7 @@ export const Unsplash = () => {
           {data.map((data, key) => (
             <span key={key} className=" img-box ">
               <img
-                onClick={() => handleShow(data.urls.small)}
+                onClick={() => handleShow(data.urls.small, key)}
                 src={data.urls.small}
                 className="img-fluid"
                 alt={data.alt_description}
@@ -60,6 +73,12 @@ export const Unsplash = () => {
           <Modal show={show} onHide={handleClose} className="img-modal">
             <Modal.Body className="image-body text-center">
               <img src={image} alt="" />
+              <button className="next" onClick={prevImage}>
+                Previous
+              </button>
+              <button className="previous" onClick={nextImage}>
+                Next
+              </button>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>

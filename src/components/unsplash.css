@@ -20,6 +20,32 @@ body {
 
 }
 
+.next {
+    left: 0;
+}
+
+.previous {
+    right: 0;
+}
+
+.next,
+.previous {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15%;
+    color: #fff;
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    opacity: .5;
+    transition: opacity .15s ease;
+}
+
 .container {
     border-radius: 5px;
     margin: 5px;
@@ -87,8 +113,11 @@ h4 {
 .modal-content {
     margin: auto;
     display: block;
-    width: 80%;
-    max-width: 700px;
+
+}
+
+.modal-dialog {
+    max-width: 100% !important;
 }
 
 /* Caption of Modal Image */
