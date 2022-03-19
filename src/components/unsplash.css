@@ -15,7 +15,7 @@ body {
 }
 
 .img-fluid {
-    width: 363px;
+
     border-radius: 5px;
 
 }
@@ -188,4 +188,9 @@ h4 {
 
 .modal-footer {
     border-top: 1px solid #dee2e63d !important;
+}
+
+.description {
+    color: #f5effc;
+
 }

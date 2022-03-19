@@ -12,22 +12,27 @@ export const Unsplash = () => {
   const [hasMore, setHasMore] = useState(true);
   const [show, setShow] = useState(false);
   const [image, setImage] = useState("");
+  const [desc, setDesc] = useState("");
+
   const [index_img, setIndex] = useState(0);
   const handleClose = () => setShow(false);
-  const handleShow = (image, key) => {
+  const handleShow = (image, desc, key) => {
     setImage(image);
+    setDesc(desc);
     setIndex(key);
     setShow(true);
   };
 
   const nextImage = () => {
     console.log(index_img);
-    setImage(data.at(index_img + 1).urls.small);
+    setImage(data.at(index_img + 1).urls.regular);
+    setDesc(data.at(index_img + 1).description);
     setIndex(index_img + 1);
   };
   const prevImage = () => {
     console.log(index_img);
-    setImage(data.at(index_img - 1).urls.small);
+    setImage(data.at(index_img - 1).urls.regular);
+    setDesc(data.at(index_img + 1).description);
     setIndex(index_img - 1);
   };
   const client_id = "4mB0CC1xdwTfTQGjF1v1uO9vS2Z8ubzBPd4X0B86IEU";
@@ -63,7 +68,9 @@ export const Unsplash = () => {
           {data.map((data, key) => (
             <span key={key} className=" img-box ">
               <img
-                onClick={() => handleShow(data.urls.small, key)}
+                onClick={() =>
+                  handleShow(data.urls.regular, data.description, key)
+                }
                 src={data.urls.small}
                 className="img-fluid"
                 alt={data.alt_description}
@@ -72,7 +79,7 @@ export const Unsplash = () => {
           ))}
           <Modal show={show} onHide={handleClose} className="img-modal">
             <Modal.Body className="image-body text-center">
-              <img src={image} alt="" />
+              <img src={image} alt="" className="img img-fluid" />
               <button className="next" onClick={prevImage}>
                 Previous
               </button>
@@ -81,6 +88,7 @@ export const Unsplash = () => {
               </button>
             </Modal.Body>
             <Modal.Footer>
+              <p className="description">{desc}</p>
               <Button variant="secondary" onClick={handleClose}>
                 Close
               </Button>
